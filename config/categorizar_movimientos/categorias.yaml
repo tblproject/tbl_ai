@@ -1,0 +1,106 @@
+# Catálogo de categorías para clasificar movimientos (campo tipo_movimiento).
+#
+# Para añadir una categoría, agrega un elemento a la lista con estos campos:
+#   nombre          Identificador único (sin espacios; es el valor que se guarda en tipo_movimiento).
+#   descripcion     Qué agrupa la categoría. Es lo que lee Nimble, así que cuanto más claro, mejor.
+#   tipo_operacion  ingreso | pago | ambos  (a qué movimientos se ofrece según el signo del importe).
+#   ejemplos        Referencia para humanos; no se envía a Nimble.
+#
+# Reglas: nombres únicos, debe existir la categoría "otros" y el máximo es 26 (límite de Nimble).
+# El script reconstruye la tabla "categorías" de DuckDB con este fichero en cada ejecución.
+
+# ---- Ingresos ----
+- nombre: soporte
+  descripcion: Cobro de soporte técnico o mantenimiento recurrente de aplicaciones a clientes.
+  tipo_operacion: ingreso
+  ejemplos: Cobro soporte mensual; Cobro mantenimiento aplicacion
+- nombre: desarrollo
+  descripcion: Cobro de proyectos de desarrollo e implantación de software a clientes.
+  tipo_operacion: ingreso
+  ejemplos: Cobro proyecto web; Cobro desarrollo móvil; Cobro desarrollo frontend; Cobro integración API;
+    Cobro implantación CRM; Cobro migración datos
+- nombre: consultoria
+  descripcion: Cobro de servicios de consultoría, auditoría técnica o analítica de datos.
+  tipo_operacion: ingreso
+  ejemplos: Cobro servicio consultoría; Cobro auditoría técnica; Cobro analítica de datos
+- nombre: formacion
+  descripcion: Cobro de cursos y formación impartida a empresas.
+  tipo_operacion: ingreso
+  ejemplos: Cobro formación corporativa
+- nombre: marketing_diseno
+  descripcion: Cobro de campañas de marketing y servicios de diseño a clientes.
+  tipo_operacion: ingreso
+  ejemplos: Cobro campañas marketing; Cobro facturación diseño
+- nombre: pasarela_pago
+  descripcion: Cobros recibidos a través de una pasarela de pago.
+  tipo_operacion: ingreso
+  ejemplos: Cobro pasarela de pago
+- nombre: intereses
+  descripcion: Intereses bancarios cobrados.
+  tipo_operacion: ingreso
+  ejemplos: Cobro intereses internacional
+- nombre: nomina
+  descripcion: Nómina recibida de una empresa.
+  tipo_operacion: ingreso
+  ejemplos: Nomina / Transferencia nomina empresa
+- nombre: transferencia_recibida
+  descripcion: Transferencia recibida de una persona física.
+  tipo_operacion: ingreso
+  ejemplos: Transferencia recibida / Hortensia Martorell Higueras
+- nombre: devolucion
+  descripcion: Devolución de una compra pagada con tarjeta.
+  tipo_operacion: ingreso
+  ejemplos: Tarjeta crédito / Devolución compra
+
+# ---- Pagos ----
+- nombre: suministros
+  descripcion: Recibos de luz, gas, agua, internet, telefonía y otros suministros.
+  tipo_operacion: pago
+  ejemplos: Adeudo luz; Adeudo gas; Adeudo agua; Adeudo internet; Adeudo telefonía; Adeudo suministros;
+    Pago servicio electricidad oficina
+- nombre: alquiler
+  descripcion: Alquiler del local u oficina.
+  tipo_operacion: pago
+  ejemplos: Adeudo alquiler local
+- nombre: seguro
+  descripcion: Primas y recibos de seguros.
+  tipo_operacion: pago
+  ejemplos: Adeudo seguro
+- nombre: gestoria
+  descripcion: Honorarios de gestoría o asesoría.
+  tipo_operacion: pago
+  ejemplos: Adeudo gestoría
+- nombre: servicios_generales
+  descripcion: 'Servicios generales del local: limpieza, vigilancia, reparación de equipos.'
+  tipo_operacion: pago
+  ejemplos: Adeudo limpieza; Adeudo vigilancia; Pago servicio limpieza local; Pago servicio reparación
+    equipos
+- nombre: servicios_externos
+  descripcion: 'Servicios profesionales subcontratados: copywriting, diseño gráfico, SEO, traducción,
+    publicidad y mantenimiento web.'
+  tipo_operacion: pago
+  ejemplos: Pago servicio copywrite contenido; Pago servicio diseño gráfico; Pago servicio seo posicionamiento;
+    Pago servicio traducción documentos; Pago servicio publicidad digital; Pago servicio mantenimiento
+    web
+- nombre: compras_tarjeta
+  descripcion: 'Compras con tarjeta en comercios: restauración, supermercado, panadería, ferretería, combustible.'
+  tipo_operacion: pago
+  ejemplos: Tarjeta crédito / restauración PALACIOS Y ASOCIADOS S.A.T.; compra ferretería ...
+- nombre: pago_factura
+  descripcion: Transferencia emitida para pagar una factura concreta.
+  tipo_operacion: pago
+  ejemplos: Transferencia realizada / Pago fact. 2022-5812
+
+# ---- Ambos sentidos ----
+- nombre: proveedor
+  descripcion: Operaciones con un proveedor identificado por su razón social (S.L., S.A., S.C.P., ...).
+  tipo_operacion: ambos
+  ejemplos: Pago a proveedor / CORTÉS Y ASOCIADOS S.A.D
+- nombre: suscripcion_software
+  descripcion: Suscripciones, licencias y renovaciones de software, tanto pagadas como cobradas.
+  tipo_operacion: ambos
+  ejemplos: Cobro suscripción software; Adeudo software; Suscripción X / Renovación X
+- nombre: otros
+  descripcion: Cualquier movimiento que no encaje claramente en ninguna otra categoría.
+  tipo_operacion: ambos
+  ejemplos: Plan 238850174782; textos ambiguos o sin sentido
