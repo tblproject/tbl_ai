@@ -176,6 +176,5 @@ cython_debug/
 .pypirc
 
 # Data and logs directories (must be gitignored per project rules)
-data/
 logs/
 
